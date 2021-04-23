@@ -1,0 +1,197 @@
+---
+title: "A5 and A6"
+author: "Merdyanto"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    highlight: haddock
+    keep_tex: yes
+    includes:
+      in_header: latex-topmatter_pdf.tex
+    toc: yes
+    toc_depth: 2
+  word_document:
+    toc: yes
+    toc_depth: '2'
+monofont: Consolas
+smaller: yes
+classoption: a4paper
+header-includes:
+- \usepackage{tikz}
+- \usepackage{pgfplots}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newpage 
+
+# I. Inverse Transverse Method
+
+## Exercise 1
+
+Using ruinf() function in R, complete the following code block that generates 1,000 random numbers that follow function exp(3)\
+
+*\underline{Answer:}* \
+
+```{r}
+set.seed(1234)
+N <- 1000
+u <- runif(N)
+x <- -log(1-u)/3
+head(x)
+```
+
+\newpage
+
+## Exercise 2.1 Uniform random numbers
+
+```{python}
+import matplotlib.pyplot as plt
+import random
+random.seed(1234)
+
+x = [random.uniform(-1, 1) for _ in range(1000)]
+plt.show(plt.hist(x))
+```
+
+\newpage
+
+## Exercise 2.2 Normal random numbers
+
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+
+random.seed(1234)
+mu = 3
+sigma = 2
+n = 1000
+x = np.random.normal(mu, sigma, n)
+plt.show(plt.hist(x))
+```
+
+
+\newpage
+
+## Exercise 2.3 Exponential random numbers
+
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+
+random.seed(1234)
+beta = 1/5
+lamda = 1 / beta
+n = 10000
+
+x = np.random.exponential(lamda, n)
+plt.show(plt.hist(x, bins = 20))
+```
+
+\newpage
+## Exercise 2.4 Poisson random numbers
+
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+random.seed(1234)
+beta1 = 1/5
+lamda1 = 1 / beta
+n1 = 10000
+x1 = np.random.poisson(lamda, n)
+plt.show(plt.hist(x1, bins = 20))
+```
+
+\newpage 
+
+
+# II. Running Estimate Approach
+
+## Exercise 1
+
+Write a python code that produces results in page 10 and 11 using Eq (3). Use the variable names of new_est, old_est, alpha, MC_tgt, MC_err to demonstrate your understanding. \
+*\underline{Answer:}* \
+\newpage
+\lc
+The first phyton code:
+\vspace{5pt}
+```{python}
+import random
+import matplotlib.pyplot as plt
+import math
+random.seed(1234) 
+old_est = 0
+n = 1
+MC_N= 1000000
+results = []
+for i in range(MC_N):
+    x = random.uniform(0,1)
+    y = random.uniform(0,1)
+    t = math.sqrt(x**2 + y**2)
+    if t <= 1:
+        t = t +1
+    mc_target = 4 * t
+    alpha = 1/n
+    beta = 1- alpha
+    old_est = beta * old_est
+    mc_err = mc_target - old_est
+    new_est = old_est + alpha * mc_err
+    results.append(new_est)
+    if n > MC_N:
+        break
+    n = n+1
+    old_est = new_est
+plt.plot(results[0:20])
+plt.ylabel(' pi approximation')
+plt.xlabel('iteration #')
+plt.show(plt.xticks(range(0,21)))
+```
+\rc
+The comparable python code:
+\vspace{5pt}
+```{python}
+import random
+import matplotlib.pyplot as plt
+import math
+random.seed(1234) 
+old_est = 0
+n = 1
+MC_N= 1000000
+results = []
+for i in range(MC_N):
+    x = random.uniform(0,1)
+    y = random.uniform(0,1)
+    t = math.sqrt(x**2 + y**2)
+    if t <= 1:
+        t = t +1
+    mc_target = 4 * t
+    alpha = 1/n
+    beta = 1- alpha
+    old_est = beta * old_est
+    mc_err = mc_target - old_est
+    new_est = old_est + alpha * mc_err
+    results.append(new_est)
+    if n > MC_N:
+        break
+    n = n+1
+    old_est = new_est
+plt.plot(results[1000:1020])
+plt.ylabel(' pi approximation')
+plt.xlabel('iteration #')
+plt.show(plt.xticks(range(0,21)))
+```
+
+\ec
+\newpage
+
+```{r, results='hide'}
+"A5A6_Work"
+```

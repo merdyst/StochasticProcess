@@ -1,0 +1,451 @@
+---
+title: "A7 & A8"
+author: "Merdyanto"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    highlight: haddock
+    keep_tex: yes
+    includes:
+      in_header: latex-topmatter_pdf.tex
+    toc: yes
+    toc_depth: 2
+  word_document:
+    toc: yes
+    toc_depth: '2'
+monofont: Consolas
+smaller: yes
+classoption: a4paper
+header-includes:
+- \usepackage{tikz}
+- \usepackage{pgfplots}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(error = TRUE)
+```
+
+\newpage 
+
+# I. Problem and Solution
+
+## Exercise 1
+
+Assume that D follows the following discrete distribution\
+
+*\underline{Answer:}* \
+
+\begin{center}
+\begin{tabular}{ c c c c c }
+ d & 20 & 25 & 30 & 35\\ 
+ P[D = d] & 0.1 & 0.2 & 0.4 & 0.3\\  
+ 30 \land \: d & 20 & 25 & 30 & 30\\
+ $\mathbb(30-X)^+$ & 10 &5 &0&0 \\
+ 24 \land \: d & 20 & 24 & 24 & 24\\
+ $\mathbb (24-X)^+$ & 4 &0 &0& 0 
+\end{tabular}
+\end{center}
+
+and with above value, we can use equation 1 to get each of the expectation\
+
+\begin{eqnarray}
+\mathbb{E}[x] = \sum P[D = d]. d
+\end{eqnarray}
+
+\begin{eqnarray}
+\mathbb{E}[30 \wedge D] &=& \mathbb{E}[min(30,D)] \nonumber \\
+&=& 29.5
+\end{eqnarray}
+
+\begin{eqnarray}
+\mathbb{E}[(30-D)^+] &=& \mathbb{E}[max(30-D,0)] \nonumber \\
+&=& 1
+\end{eqnarray}
+
+\begin{eqnarray}
+\mathbb{E}[24 \wedge D] &=& \mathbb{E}[min(24,D)] \nonumber \\
+&=& 23.6
+\end{eqnarray}
+
+\begin{eqnarray}
+\mathbb{E}[(24-D)^+] &=& \mathbb{E}[max(24-D,0)] \nonumber \\
+&=& 0.4
+\end{eqnarray}
+
+\newpage
+
+# II. Exercises
+## Exercise 2
+
+Find your brother's optimal stock level by the above Theorem 2. Then, find his expected profit using the Remark 1.\
+
+*\underline{Answer:}* \
+
+\begin{eqnarray}
+F(y) \geq \frac{Cu}{Co + Cu} &=& \frac{1}{0.5 + 1} \nonumber \\
+&=& \frac{2}{3}
+\end{eqnarray}
+
+Finding the optimal stock level using theorem 2\
+The minimum $x^*$ where\
+
+\begin{eqnarray}
+\frac{x^* - a}{b-a} \geq \frac{2}{3} \nonumber\\
+\frac{x^* - 11}{15-11} \geq \frac{2}{3}\nonumber\\
+x^* \geq \frac{41}{3}
+\end{eqnarray}
+
+therefore optimal stock level is $\frac{41}{3}$. \ 
+then based on the Remark 1 we can get expected value \
+
+\begin{eqnarray}
+\mathbb{E}[profit] &=& \mathbb{E}[sales rev] + \mathbb{E}[salvage rev] - \mathbb{E}[material cost]
+\end{eqnarray}
+
+using equal probability 20% each of the demand from 11 to 15.\
+\begin{eqnarray}
+\mathbb{E}[profit] &=& \frac{29}{3} \times 0.2 +  \frac{67}{5} \times 0.2 + \frac{38}{3} \times 0.2 + \frac{41}{3} \times 0.2 + \frac{41}{3} \times 0.2 \nonumber\\
+&=& 12.6
+\end{eqnarray}
+
+therefore expected profit is $12.6.
+
+\newpage
+
+## Exercise 3
+
+Find optimal stock level and expected profit.\
+
+*\underline{Answer:}* \
+
+Known The customer demands follow U(20,40)\
+$p = 2$\
+$c = 1$\
+$s = 0.5$\
+$Cu = p -c = 2 -1 = 1$\
+$Co = c-s = 1-0.5 = 0.5$\
+
+\begin{eqnarray}
+F(y) &=& \frac{1}{1+0.5} \nonumber\\
+&=& \frac{2}{3}
+\end{eqnarray}
+
+finding the optimal stock then\
+\begin{eqnarray}
+\frac{x^* - a}{b-a} \geq \frac{2}{3} \nonumber\\
+\frac{x^* - 20}{40-20} \geq \frac{2}{3}\nonumber\\
+x^* \geq \frac{100}{3}
+\end{eqnarray}
+
+therefore the optimal stock will be level is $\frac{100}{3}$ and expected profit using tabular method is $26.5.
+\newpage
+
+## Exercise 4
+Express the following quantity using sale as X and demand as D.\
+
+*\underline{Answer:}* \
+Known that:\
+$p = 18$\
+$c = 3$\
+$s = 1$\
+$Cu = p -c = 18 -3 = 15$\
+$Co = c-s = 3-1 = 2$\
+
+\begin{eqnarray}
+\mathbb{E}[economic cost] &=& \mathbb{E}[understock cost] + \mathbb{E}[overstock cost] \\
+&=& Cu\mathbb{E}[(D-X)^+] + Co\mathbb{E}[(X-D)^+] \nonumber\\
+&=& 15\mathbb{E}[(D-X)^+] + 2\mathbb{E}[(X-D)^+]
+\end{eqnarray}
+
+In newsvendor problem, maximizing the expected profit is equivalent to minimizing the expected  economic cost. Therefore\
+\begin{eqnarray}
+\mathbb{E}[Profit] &=& argmin_x \: \mathbb{E}[economic cost]\\
+&=& argmin_x \: 15\mathbb{E}[(D-X)^+] + 2\mathbb{E}[(X-D)^+]
+\end{eqnarray}
+
+\newpage
+
+## Exercise 5
+
+Prove theorem 1.\
+
+\begin{eqnarray}
+\mathbb{E}[Profit] &=& argmin_x \: \mathbb{E}[economic cost] \nonumber\\
+&=& argmin_x \: Cu\mathbb{E}[(D-X)^+] + Co\mathbb{E}[(X-D)^+]
+\end{eqnarray}
+
+*\underline{Answer:}* \
+
+Derivative of this expression with respect to X.\
+
+\begin{eqnarray}
+\frac{d}{dX} \mathbb{E}[economic cost] &=& 
+\mathbb{E}[understock cost] + \mathbb{E}[overstock cost] \nonumber\\
+&=& p(-Xf(X)) - p + pX F'(X) + pF(X) + c \nonumber\\
+&=& pF(X) + c - p
+\end{eqnarray}
+
+will result negative of the derivative arrived at above, and this is a minimization instead of a maximization formulation, so the critical point will be the same. Therefore the minimum point will be to maximize the expected profit.
+ 
+\newpage
+
+## Exercise 6
+
+Show that $(D \wedge X) + (Y-D)^+ = Y$ .\
+
+*\underline{Answer:}* \
+
+\begin{eqnarray}
+min(D,Y) + max(Y-D,0) &=& Y \nonumber
+\end{eqnarray}
+
+\lc
+\vspace{10pt}
+\[min(D,Y)=
+\begin{Bmatrix}
+D \,\,if \,(D\leq Y) \\ \\
+0 \,\,\,\,\,\,\, otherwise
+\end{Bmatrix}
+\]
+\rc
+\vspace{10pt}
+\[max(Y-D,0)=
+\begin{Bmatrix}
+Y-D \,\,if \,(Y-D \ge 0) \\ \\
+0 \,\,\,\,\,\,\, otherwise
+\end{Bmatrix}
+\]
+\ec
+
+let D equal to Demand, Y is equal to stock and t is time to meet and therefore we can give profit is P and c is cost\
+
+also known that 
+\begin{eqnarray}
+min(D,Y) &=& Y - (Y-D)^+
+\end{eqnarray}
+
+therefore:\
+
+\begin{eqnarray}
+min(D,Y) + max(Y-D,0) &=& Y \nonumber\\
+Y - (Y-D)^+ + max(Y-D,0) &=& Y  \nonumber\\
+Y - max(Y-D,0) + max(Y-D,0) &=& Y \nonumber\\
+Y &=& Y \nonumber
+\end{eqnarray}
+
+\newpage
+
+## Exercise 7
+
+Let D be a continous random variable and uniformly distributed between 5 and 10.\
+
+$\mathbb{E}[max(D,8)]$
+
+*\underline{Answer:}* \
+
+\[max(D,8)=
+\begin{Bmatrix}
+D \,\,if \,(D \ge 8) \\ \\
+8 \,\,\,\,\,\,\, otherwise
+\end{Bmatrix}
+\]
+
+\begin{eqnarray}
+\mathbb{E}[max(D,8)] &=& \int_{-\infty}^{\infty} max(D,8) f(D) dD \nonumber\\
+&=& \int_{-\infty}^{5} max(D,8) f(D) dD + \int_{5}^{10} max(D,8) f(D) dD + \int_{5}^{\infty} max(D,8) f(D) dD \nonumber\\
+&=& 0 + \int_{5}^{10} max(D,8) f(D) dD + 0 \nonumber\\
+&=& \int_{5}^{8} 8 \frac{1}{5} dD + \int_{8}^{10} (D) \frac{1}{5} dD \nonumber\\
+&=& 12 \nonumber
+\end{eqnarray}
+
+
+$\mathbb{E}[(D,8)^-]$
+
+*\underline{Answer:}* \
+
+$(D,8)^-$ is negative part of (D-8)
+
+\[min(D-8,0)=
+\begin{Bmatrix}
+D-8 \,\,if \,(D \leq 8) \\ \\
+0 \,\,\,\,\,\,\, otherwise
+\end{Bmatrix}
+\]
+
+\begin{eqnarray}
+\mathbb{E}[min(D-8,0)] &=& \int_{-\infty}^{\infty} min(D-8,0) f(D) dD \nonumber\\
+&=& \int_{-\infty}^{5} min(D-8,0) f(D) dD + \int_{5}^{10} min(D-8,0) f(D) dD + \int_{5}^{\infty} min(D-8,0) f(D) dD \nonumber\\
+&=& 0 + \int_{5}^{10} min(D-8,0) f(D) dD + 0 \nonumber\\
+&=& \int_{5}^{8} (D-8) \cdot \frac{1}{5} dD + \int_{8}^{10} 0 \cdot \frac{1}{5} dD \nonumber\\
+&=& (19.5 - 4.8) + 0 \nonumber \\
+&=& 14.7 \nonumber
+\end{eqnarray}
+
+
+\newpage
+
+# III. Advanced Modelling 1
+## Exercise 1
+
+Now assume that the demand for bananas is exponentially distributed with mean 1000.
+
+Identify Co, Cu
+*\underline{Answer:}* \
+
+Co  = cost - salvage = 30 - (-5) = 35\
+Cu  = profit - cost = 60 - 30 = 30\
+
+How many pound of bananas should David order each week?\
+
+*\underline{Answer:}* \
+
+```{r}
+Co <- 35
+Cu <- 30
+criticalvalue <- Cu/(Cu+Co)
+xstar <- -1000 * log(1-criticalvalue)
+xstar
+```
+
+
+If David order 800 pounds this week, how much profit he should expect this week?\
+
+*\underline{Answer:}* \
+
+```{r}
+
+X <- 800
+D <- dexp(X,rate = 10^-3) 
+sales_rev <- 60 * pmax(D,X)
+salvage_rev <- -5 * pmin(X-D,0)
+material_cost <- -30*X
+exp_profit <- mean(sales_rev + salvage_rev + material_cost) 
+exp_profit
+```
+
+
+
+\newpage
+
+# IV. Advanced Modelling 2
+## Exercise 2
+What is the total expected cost when the initial inventory is x = 0? What is the total
+expected cost when the initial inventory x = 700? \
+
+
+*\underline{Answer:}* \
+
+Known that ordering cost is 1500 while c = 50, s = -15, sh = -100 with initial level x = 0,500,700,800.\
+Therefore:\
+
+\begin{eqnarray}
+critical value &=& \frac{Cu}{Co+Cu} \nonumber\\
+&=& \frac{50}{115}
+\end{eqnarray}
+
+with Theorem 2 and following uniform distribution therefore:\
+\begin{eqnarray}
+\frac{50}{115} &=& \frac{y^*-300}{900-300} \nonumber\\
+y^* &=& 539.869 
+\end{eqnarray}
+
+Reading the problem we can calculate the total cost.\
+
+\begin{eqnarray}
+total cost = order cost + disruption cost + disposal cost
+\end{eqnarray}
+
+therefore when the initial inventory is x equal to 0 and the optimal value is 560.\
+\begin{eqnarray}
+\mathbb{E}[TC \textbar x = 0] &=& (1500 + 50\cdot X) + 100\cdot \mathbb{E}[(D-X)^+] + 15 \cdot \mathbb{E}[(X-D)^+]  \nonumber\\
+&=& 26500 + 100 \cdot 96 + 15 \cdot 56 \nonumber\\
+&=& 36940 
+\end{eqnarray}
+
+Then, the initial inventory is x equal to 700 and the optimal value is 560. But we know 700 > 560 so we should order 0\
+\begin{eqnarray}
+\mathbb{E}[TC \textbar x = 700] &=& (1500 + 50\cdot X) + 100\cdot \mathbb{E}[(D-X)^+] + 15 \cdot \mathbb{E}[(X-D)^+]  \nonumber\\
+&=& 0 + 100 \cdot 600 + 0 \nonumber\\
+&=& 60000
+\end{eqnarray}
+
+\newpage
+
+## Exercise 3
+
+Repeat the problem in page 16 when the demand is following:
+$P(𝐷 = 300) = .2, P(𝐷 = 500) = .4, P(𝐷 = 700) = .3, P(𝐷 = 900) = .1$  fixed order cost became 1000.\
+
+a. An optimal ordering.\
+
+*\underline{Answer:}* \
+
+\begin{eqnarray}
+critical value &=& \frac{Cu}{Co+Cu} \nonumber\\
+&=& \frac{50}{115}\nonumber\\
+&=& 0.434
+\end{eqnarray}
+
+So based on the CDF given from the problem the optimal order is when D = 500 where the CDF is 0.6. Assuming the optimal order equal to demand then it will be equal to 500\
+
+b. Expected for arbitrary initial inventory level.\
+
+*\underline{Answer:}* \
+
+\begin{eqnarray}
+\mathbb{E}[TC \textbar order \: (500-x) \: if \: x=s] &=& \mathbb{E}[TC \textbar order \: 0 \: if \: x=s] \nonumber\\
+1000 + 50 (500 - x) + 100 (500 - x) 15 (x - 500) &=& 0 + 100 \cdot 500 + 0 \nonumber\\
+x &=& 137 
+\end{eqnarray}
+
+arbitary initial inventory level is 137.\
+
+\newpage
+c. Total expected cost when the initial inventory is x = 0 with the optimal ordering quantity 500 will be ordered .\
+
+*\underline{Answer:}* \
+
+\begin{eqnarray}
+total cost = order cost + disruption cost + disposal cost
+\end{eqnarray}
+
+\begin{center}
+\begin{tabular}{ c c c c}
+ Demand & Total Cost in that Demand & Probability with Weight & Result \\
+ D = 300 & $1000 + 50 \cdot 500 + 100\cdot 0 + 15 \cdot 200$ & $29000 \cdot 0.2$ & 5800\\ 
+ D = 500 & $1000 + 50 \cdot 500 + 100\cdot 0 + 15 \cdot 0$ & $26000 \cdot 0.4$ & 10400\\ 
+ D = 700 & $1000 + 50 \cdot 500 + 100\cdot 200 + 15 \cdot 0$ & $46000 \cdot 0.3$ & 13800\\
+ D = 900 & $1000 + 50 \cdot 500 + 100\cdot 400 + 15 \cdot 0$ & $66000 \cdot 0.1$ & 6600  
+\end{tabular}
+\end{center}
+
+therefore the expected cost is 36600.\
+
+d. Total expected cost when the initial inventory is x = 700 with the optimal ordering quantity 500 will be ordered .\
+
+*\underline{Answer:}* \
+
+\begin{eqnarray}
+total cost = order cost + disruption cost + disposal cost
+\end{eqnarray}
+
+\begin{center}
+\begin{tabular}{ c c c c}
+ Demand & Total Cost in that Demand & Probability with Weight & Result \\
+ D = 300 & $1000 + 50 \cdot 500 + 100\cdot 0 + 15 \cdot 900$ & $39500 \cdot 0.2$ & 7900\\ 
+ D = 500 & $1000 + 50 \cdot 500 + 100\cdot 0 + 15 \cdot 700$ & $36500 \cdot 0.4$ & 14600\\ 
+ D = 700 & $1000 + 50 \cdot 500 + 100\cdot 200 + 15 \cdot 500$ & $33500 \cdot 0.3$ & 10050\\
+ D = 900 & $1000 + 50 \cdot 500 + 100\cdot 400 + 15 \cdot 400$ & $32000 \cdot 0.1$ & 3200  
+\end{tabular}
+\end{center}
+
+therefore the expected cost is 38950.\
+ 
+
+
+
+\newpage
+```{r, results='hide'}
+"A7A8_Work"
+```

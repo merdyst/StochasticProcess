@@ -1,0 +1,444 @@
+---
+title: "A2. Prob Review"
+author: "Merdyanto"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    highlight: haddock
+    keep_tex: yes
+    includes:
+      in_header: latex-topmatter_pdf.tex
+    toc: yes
+    toc_depth: 2
+  word_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
+monofont: Consolas
+smaller: yes
+classoption: a4paper
+header-includes:
+- \usepackage{tikz}
+- \usepackage{pgfplots}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newpage 
+
+# I. Probability
+
+## Exercise 1
+
+*Show that* $\mathbb{P}(A \mid B \cap C)\mathbb{P}(B \mid C)=\mathbb{P}(A \cap B \mid C)$
+
+*\underline{Solution:}* 
+
+given\
+$\mathbb{P}(A \mid B)= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}$
+
+
+\begin{eqnarray}
+\mathbb{P}(A \mid B \cap C)\mathbb{P}(B \mid C) 
+  &=& \frac{\mathbb{P}(A \cap (B \cap C)}{\mathbb{P}(B \cap C)} \times \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(C)}
+\end{eqnarray}
+
+\begin{eqnarray}
+ &=& \frac{\mathbb{P}(A \cap B \cap C)}{\mathbb{P}(C)}\
+\end{eqnarray}
+
+\begin{eqnarray}
+&=& \mathbb{P}(A \cap B \mid C)
+\end{eqnarray}
+
+
+# II. Random variables
+
+\newpage
+
+# III. Uniform distribution
+
+## Exercise 2
+
+$X \sim U(10,20)$, then what is $F(10)$? and $F(15)$?
+
+*\underline{Solution:}*
+
+\[f(x)=
+\begin{Bmatrix}
+\frac{1}{10} \,\,(10\leq x\leq 20) \\ \\
+0 \,\,\,\,\,\,\,\,\,\,\,\,\, otherwise
+\end{Bmatrix}
+\]
+\vspace{10pt}
+\[F(x)=
+\begin{Bmatrix}
+0 \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,(10\leq x) \\\\ \frac{x-10}{10} \,\,\,\,\,\,\,(10\leq x \leq 20) \\\\1 \,\,\,\,\,\,\,\,\,\,\,\,\,(x>20)
+\end{Bmatrix}
+\]
+
+$F(10) = \frac{x-10}{10}$\
+$F(10) = \frac{10-10}{10}$\
+$F(10) = 0$\
+
+$F(15) = \frac{x-10}{10}$\
+$F(15) = \frac{15-10}{10}$\
+$F(15) = \frac{1}{2}$\
+
+\newpage
+
+# IV. Exponential distribution
+
+## Exercise 3
+
+Prove that pdf $\rightarrow$ cdf*
+
+*\underline{Solution:}*
+
+$F(x)=\int_{-\infty}^{x}f(x)\,\,dx$
+
+i) if $x<0$, then $f(x)=0$, so $F(x)=0$
+ii) if $x \ge 0$, then 
+
+\begin{eqnarray}
+F(x) &=&  P(X <=x)
+\end{eqnarray}
+
+\begin{eqnarray}
+&=& \int_{-\infty}^{\infty}f(x)\,\,dx
+\end{eqnarray}
+
+\begin{eqnarray}
+&=& \int_{-\infty}^{0}f(x)\,\,dx + \int_{0}^{x}f(x)\,\,dx
+\end{eqnarray}
+
+\begin{eqnarray}
+&=& 0 + \int_{0}^{x}f(x)\,\,dx
+\end{eqnarray}
+
+\begin{eqnarray}
+&=& f(x) - f(0)\\
+&=& 0\\
+\end{eqnarray}
+
+\newpage
+\hr
+
+## Exercise 4
+
+Show that $\mathbb{E}X=1/\lambda$.
+
+*\underline{Solution:}*
+for $\mathbb{E}X=1/\lambda$
+
+to solve above equation, use integration partial where 
+\begin{eqnarray}
+\int u  du &=& uv - \int v dv \nonumber\\
+u &=&  \lambda x \nonumber\\
+dv &=&  e^{-\lambda x} \nonumber
+\end{eqnarray}
+
+
+\begin{eqnarray}
+\mathbb{E}X 
+  &=& \int_{-\infty}^{\infty} x f(x) \,\, dx \\
+  &=& \int_{-\infty}^{0} x \lambda e^{-\lambda x}  \,\, dx + \int_{0}^{\infty} x \lambda e^{-\lambda x}  \,\, dx \\
+  &=& 0 +  \int_{0}^{\infty} x \lambda e^{-\lambda x}  \,\, dx \\
+\end{eqnarray}
+
+
+\begin{eqnarray}
+&=& \left.- \lambda x \cdot \frac{1}{\lambda} e^{-\lambda x}\right|_0^\infty - \frac{1}{\lambda} e^{-\lambda x} dx
+\end{eqnarray}
+
+know that
+\begin{eqnarray}
+\lim_{x\to \infty} \frac{1}{\lambda e^{\lambda x}} \nonumber
+&=& 0 \nonumber
+\end{eqnarray}
+
+\begin{eqnarray}
+&=& - \left.x e^{-\lambda x} \right|_0^\infty + \int_{0}^{\infty} x \lambda e^{-\lambda x}  \,\, dx \\
+&=& - (0 - 0) + \frac{\lambda}{\lambda} \int_{0}^{\infty} x \lambda e^{-\lambda x}  \,\, dx \\
+&=& \frac {1}{\lambda}
+\end{eqnarray}
+
+\newpage
+
+## Exercise 5 
+
+For $X \sim exp(\lambda)$, show that $Var(X) = 1/\lambda^2$ (Hint: You need to do $EX^2$ first)
+
+*\underline{Solution:}*
+
+Recall that $Var(X)=\E X^2-(\E X)^2$. We already have that $\E X = 1/\lambda$, so it is only left to find an expression for $\E X^2$ in terms of $\lambda$. This can be done in the following way:
+
+\begin{eqnarray}
+M_x(t) &=& \int_{0}^{\infty} e^{tx} \lambda e^{-\lambda x}  \,\, dx \\
+&=& \lambda \int_{0}^{\infty} e^{tx - \lambda x}  \,\, dx \\
+&=& \lambda \int_{0}^{\infty} e^{tx - \lambda x}  \,\, dx \cdot \frac{\lambda - t}{\lambda - t}\\
+&=& \frac{\lambda}{\lambda - t} \int_{0}^{\infty} {\lambda - t} e^{tx - \lambda x}  \,\, dx\\
+&=& \frac{\lambda}{\lambda - t}
+\end{eqnarray}
+
+using double differential equation\
+
+\begin{eqnarray}
+\E X^2 &=& \int_{0}{\infty} x^2 \lambda e^{-\lambda x} \,\, dx\\
+&=& \left.\frac{d^2}{dt^2} M_x(t)\right|_{t=0} \\ 
+&=& \frac{d}{dt} \left.\frac{\lambda}{{\lambda - t}^2} \right|_{t=0} \\
+&=&  \frac{-2\lambda}{{\lambda - t}^3} \cdot -1 \\
+&=& \frac{-2}{\lambda ^2}
+\end{eqnarray}
+
+
+
+\newpage
+
+## Exercise 6
+
+Prove the previous theorem
+
+*\underline{Solution:}*
+
+Claim, $\mathbb{P}(X>s+t \mid X>t)=\mathbb{P}(X > s)$.
+
+\begin{eqnarray}
+\mathbb{P}(X>s+t \mid X>t) 
+&=& \frac{\mathbb{P}(X>s+t \mid X>t)}{\mathbb{P}(X > s)} 
+\end{eqnarray}
+
+we know that
+
+\begin{eqnarray}
+\mathbb{P}(X>x) &=& 1 - \mathbb{P}(X = x) \nonumber\\
+&=& 1 - (1 - e^{-ex}) \nonumber\\
+&=& e^{-ex} \nonumber
+\end{eqnarray}
+
+\begin{eqnarray}
+&=& \frac{\mathbb{P}(X>s+t)}{\mathbb{P}(X > s)} \\
+&=& \frac{e^{-\lambda {s+t}}}{e^{-xs}} \\
+&=& e^{-\lambda s - \lambda t + \lambda s} \\
+&=& e^{-\lambda t} \\
+&=& {P}(X>t) 
+\end{eqnarray}
+
+\newpage
+
+# V. Poisson distribution
+
+## Exercise 7
+
+For $X \sim Poi(\lambda)$, prove that $\mathbb{E}X=\lambda$.
+
+*\underline{Solution:}*
+
+\begin{eqnarray}
+M_x(t) &=& \E {e^{\lambda x}} \\ 
+&=& \sum_{k=0}^{\infty} e ^{tk} \cdot \frac{e^{-\lambda} \lambda^k}{k!} \\ 
+&=& e^-\lambda \cdot \sum_{k=0}^{\infty} \frac{\lambda ^k e^{tk}}{k!} \\
+&=& e^{-\lambda} \cdot e^{\lambda e^t} \\
+&=& e^{x \lambda ^ t - \lambda}
+\end{eqnarray}
+
+Using equation (39) and differential equation \
+\begin{eqnarray}
+\E x &=& \frac{d}{dt} \cdot \left. M_x(t) \right|_{t=0} \\
+&=& \left.e^{xe^t-\lambda} \lambda e^t \right|_{t=0} \\
+&=& e^{\lambda - \lambda} \lambda \\
+&=& \lambda
+\end{eqnarray}
+
+\newpage
+
+## Exercise 8
+
+Prove the above theorem.
+
+*\underline{Solution:}*
+
+Let us consider the cdf of $min(X_1,X_2)$.
+
+\begin{eqnarray}
+\mathbb{P}\left(min(X_1,X_2) \le x\right)
+&=& 1-\mathbb{P}\left(min(X_1,X_2) > x\right) \\
+&=& 1 - \mathbb{P} (X_1 > x, X_2 > x) \\
+&=& 1 - \mathbb{P} (X_1 > x) \mathbb{P} (X_2 > x) \\ 
+&=& 1 - {1 - \mathbb{P} (X_1 \leq x)} {1 - \mathbb{P} (X_2 \leq x)}  \\
+&=& 1 - (({1- F_{x1}}) \cdot ({1- F_{x2}}))
+\end{eqnarray}
+
+\newpage
+
+# VI. Some exercises
+
+## Exercise 9
+
+For $X \sim U(20,40)$, evaluate $\mathbb{E}[X \wedge 25]$ and $\mathbb{E}[(25-X)^+]$
+
+*\underline{Solution:}*
+
+We have
+
+\[f(x)=
+\begin{Bmatrix}
+\frac{1}{20} \,\,(20\leq x\leq 40) \\ \\0 \,\,\,\,\,\,\,\,\,\,\,\,\, otherwise
+\end{Bmatrix}
+\]
+
+\begin{eqnarray}
+\mathbb{E}[X \wedge 25]
+&=& \mathbb{E}[min(X,25)] 
+\end{eqnarray}
+
+\[\mathbb{E}[min(X,25)]=
+\begin{Bmatrix}
+x \,\,if \ (x\leq 25) \\ \\25 \,\,\, otherwise
+\end{Bmatrix}
+\]
+
+\begin{eqnarray}
+\mathbb{E}[(25-X)^+]
+&=& \int_{-\infty}^{\infty} \mathbb{E}[(25-X)^+] f(x) dx \\
+&=& \int_{-\infty}^{20} \mathbb{E}[(25-X)^+] f(x) dx + \int_{20}^{40} \mathbb{E}[(25-X)^+] f(x) dx + \int_{40}^{\infty} \mathbb{E}[(25-X)^+] f(x) dx \nonumber\\
+&=& 0 + \int_{20}^{40} ((25-X),0) \frac{1}{20} dx + 0 \\
+&=& \int_{20}^{25} (25-x,0) \frac{1}{20} dx + \int_{25}^{40} 0 \cdot \frac{1}{20} dx \\
+&=& \int_{20}^{25} (25-x) \frac{1}{20} dx \\
+&=& \left.(25-x) - (\frac{1}{20} \cdot \frac{1}{2}x^2)\right|_{20}^{25} \\
+&=& 1.25 - 5.625 \\
+&=& -4.375
+\end{eqnarray}
+
+\newpage
+
+## Exercise 10
+
+For $X \sim Poi(8)$, 
+
+1. $\mathbb{P}(X=0)$
+2. $\mathbb{P}(2\leq X\leq 4)$
+3. $\mathbb{P}(X>2)$
+
+*\underline{Solution:}*
+
+We have $\mathbb{P}(X)=\frac{8^{x}e^{-8}}{x!}$
+
+Number 1.
+\begin{eqnarray}
+\mathbb{P}(X=0) &=& \frac{\lambda^{x}e^{-\lambda}}{x!} \\
+&=& \frac{8^0}{0!}e^{-8} \\
+&=& e^{-8}
+\end{eqnarray}
+
+Number 2.
+\begin{eqnarray}
+\mathbb{P}(2\leq X\leq 4) &=& \sum_{i=2}^{4} \mathbb{P}(x=i) \\ 
+&=& \sum_{i=2}^{4} \frac{8^{i}e^{-8}}{i!}\\
+&=& 0.01 + 0.29 + 0.06 \\
+&=& 0.36
+\end{eqnarray}
+
+Number 3.
+\begin{eqnarray}
+\mathbb{P}(X > 2) &=& 1 - \mathbb{P}(X \leq 2) \\
+&=& 1 - \sum_{i=0}^{2} \frac{8^{i}e^{-8}}{i!}\\
+&=& 1 - 41 e^{8}
+\end{eqnarray}
+
+
+\newpage
+\hr
+
+## Exercise 11
+
+*For X~exp(7), evaluate*$\mathbb{E}[max(X,7)].$
+
+*\underline{Solution:}*
+
+Remind that $f(x)=7e^{-7x}$.
+
+\begin{eqnarray}
+\mathbb{E}[max(X,7)] 
+&=& \int_{-\infty}^{\infty} max(x,7) f(x) dx\\
+&=& \int_{-\infty}^{0} max(x,7) f(x) dx + \int_{0}^{\infty} max(x,7) f(x) dx \\
+&=& 0 + \int_{0}^{\infty} max(x,7) f(x) dx \\
+&=& \int_{0}^{7} max(x,7) 7e^{-7x} dx + \int_{7}^{\infty} max(x,7) 7e^{-7x} dx \\ 
+&=& 49 e^{-49} - 49 + \int_{7}^{\infty} x 7e^{-7x} dx \\
+&=& 49 (e^{-49}-1) + (7 \cdot \frac{\lambda}{\lambda} \int_{7}^{\infty} x 7e^{-7x} dx) \\
+&=& -49 + (\frac{7}{\lambda}  \int_{7}^{\infty} x \lambda 7e^{-7x} dx) \\
+&=& -49 + frac{7}{\lambda ^2} \\
+&=& 7(\lambda^{-2} - 7)
+\end{eqnarray}
+
+\newpage
+
+## Exercise 12
+
+For $X \sim exp(8)$, find $x^*$ such that $F(x^*)=0.6$.
+
+*\underline{Solution:}*
+
+while CDF \
+\[f_x(x)=
+\begin{Bmatrix}
+1 -(\lambda e^{-\lambda x}) \,\,if \ (x\ \geqslant 0) \\ \\0 \,\,\, (x\ < 0) 
+\end{Bmatrix}
+\]
+
+following CDF function \
+
+\begin{eqnarray}
+F(x^*) &=& 1 - \lambda e^{-\lambda x^*} \\
+e^{-\lambda x^*} &=& 0.4 \\
+-\lambda x^* &=& \log{0.4} \\ 
+x^* &=& -\frac{1}{8}\log{0.4} \\
+x^* &=& 0.049
+\end{eqnarray}
+\newpage
+\hr
+
+## Exercise 13
+
+For $X \sim U(10,20)$, find $x^*$ such that $F(x^*)=0.7$
+
+*\underline{Solution:}*
+
+Remind 
+
+\[F(x)=
+\begin{Bmatrix}
+0 \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,(10\leq x) \\ \\ \frac{x-10}{10} \,\,\,\,\,\,\,(10\leq x \leq 20) \\
+\\1 \,\,\,\,\,\,\,\,\,\,\,\,\,(x>20)
+\end{Bmatrix}
+\]
+
+For $F(x^*)$ to be 0.7, $x^*$ should be between 10 and 20. Otherwise, it would be only 0 or 1. It follows $x^*=17$. \
+CDF \
+\[F(x)=
+\begin{Bmatrix}
+0 \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,(x \leq 10) \\\\ \frac{x-10}{10} \,\,\,\,\,\,\,(10 < x \leq 20) \\\\1 \,\,\,\,\,\,\,\,\,\,\,\,\,(x>20)
+\end{Bmatrix}
+\]
+
+so \
+
+\begin{eqnarray}
+F(x^*) &=& \frac {x^*-10}{10}
+\end{eqnarray}
+
+\begin{eqnarray}
+\frac {x^*-10}{10} = 0.7 \\ 
+x^*-10 = 7 \\
+x^* = 17
+\end{eqnarray}
+
+
+```{r, results='hide'}
+"A2_Work"
+```
